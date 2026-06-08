@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/times")
 public class TimeController {
@@ -25,6 +27,11 @@ public class TimeController {
 
         Time time = service.cadastrarTime(novoTime);
         return ResponseEntity.status(201).body(time);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Time> listarTimes(){
+        return service.listarTimes();
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

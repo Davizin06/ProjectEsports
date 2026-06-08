@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,10 @@ public class TimeService {
         novoTime.setVitoriasTotais(0);
 
         return timeRepository.save(novoTime);
+    }
+
+    public List<Time> listarTimes() {
+        return timeRepository.findAll();
     }
 
     public Time registrarVitoria(Long idTime) {
