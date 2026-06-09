@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 
 @RestController
 @RequestMapping("/jogos")
@@ -31,6 +31,11 @@ public class JogoController {
     public Jogo buscarPorId(@PathVariable("id") Long jogoId){
         Jogo jogo = service.buscarPorId(jogoId);
         return jogo;
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Jogo> listarJogos(){
+        return service.listarJogos();
     }
 
     @PutMapping(value = "/{id}/versao", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

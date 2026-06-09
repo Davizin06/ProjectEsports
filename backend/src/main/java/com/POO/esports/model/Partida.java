@@ -22,13 +22,35 @@ public class Partida {
     @JoinColumn(name = "id_camp")
     private Campeonato campeonato;
 
+    @ManyToOne
+    @JoinColumn(name = "id_time_a", nullable = false)
+    private Time timeA;
+
+    @ManyToOne
+    @JoinColumn(name = "id_time_b", nullable = false)
+    private Time timeB;
+
+    @ManyToOne
+    @JoinColumn(name = "id_time_vencedor")
+    private Time vencedor;
+
     public Partida() {
     }
 
-    public Partida(LocalDateTime dataHora, LocalTime duracao, Campeonato campeonato) {
+    public Partida(
+            LocalDateTime dataHora,
+            LocalTime duracao,
+            Campeonato campeonato,
+            Time timeA,
+            Time timeB,
+            Time vencedor
+    ) {
         this.dataHora = dataHora;
         this.duracao = duracao;
         this.campeonato = campeonato;
+        this.timeA = timeA;
+        this.timeB = timeB;
+        this.vencedor = vencedor;
     }
 
     public Long getIdPartida() {
@@ -47,6 +69,18 @@ public class Partida {
         return campeonato;
     }
 
+    public Time getTimeA() {
+        return timeA;
+    }
+
+    public Time getTimeB() {
+        return timeB;
+    }
+
+    public Time getVencedor() {
+        return vencedor;
+    }
+
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
     }
@@ -57,5 +91,17 @@ public class Partida {
 
     public void setCampeonato(Campeonato campeonato) {
         this.campeonato = campeonato;
+    }
+
+    public void setTimeA(Time timeA) {
+        this.timeA = timeA;
+    }
+
+    public void setTimeB(Time timeB) {
+        this.timeB = timeB;
+    }
+
+    public void setVencedor(Time vencedor) {
+        this.vencedor = vencedor;
     }
 }

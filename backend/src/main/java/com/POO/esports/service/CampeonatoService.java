@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class CampeonatoService {
@@ -55,4 +56,9 @@ public class CampeonatoService {
         return campeonatoRepository.findById(idCamp)
                 .orElseThrow(() -> new RuntimeException("Campeonato não encontrado"));
     }
+
+    public List<Campeonato> listarCampeonatos() {
+        return campeonatoRepository.findAll();
+    }
+
 }

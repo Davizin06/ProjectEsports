@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/campeonatos")
@@ -39,5 +40,10 @@ public class CampeonatoController {
     public ResponseEntity<Campeonato> buscarPorId(@PathVariable("id") Long idCamp) {
         Campeonato campeonato = service.buscarPorId(idCamp);
         return ResponseEntity.ok(campeonato);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Campeonato> listarCampeonatos(){
+        return service.listarCampeonatos();
     }
 }

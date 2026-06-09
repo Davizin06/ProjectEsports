@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -40,7 +39,7 @@ public class TimeController {
         return time;
     }
 
-    @PutMapping(value = "/{id}/vitoria", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}/vitoria", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Time> registrarVitoria(@PathVariable("id") Long timeId) {
         Time vitoria = service.registrarVitoria(timeId);
         return ResponseEntity.ok(vitoria);

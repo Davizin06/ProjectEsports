@@ -5,6 +5,7 @@ import com.POO.esports.repository.JogoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class JogoService {
@@ -39,4 +40,9 @@ public class JogoService {
         return jogoRepository.findById(idJogo)
                 .orElseThrow(() -> new RuntimeException("Jogo não encontrado"));
     }
+
+    public List<Jogo> listarJogos() {
+        return jogoRepository.findAll();
+    }
+
 }

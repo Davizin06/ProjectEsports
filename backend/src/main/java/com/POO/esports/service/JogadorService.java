@@ -8,6 +8,7 @@ import com.POO.esports.repository.TimeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class JogadorService {
@@ -50,5 +51,9 @@ public class JogadorService {
     public Jogador buscarPorId(Long idJogador) {
         return jogadorRepository.findById(idJogador)
                 .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
+    }
+
+    public List<Jogador> listarJogadores() {
+        return jogadorRepository.findAll();
     }
 }

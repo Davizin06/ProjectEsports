@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/jogadores")
@@ -33,6 +34,11 @@ public class JogadorController {
     public Jogador buscarPorId(@PathVariable("id") Long jogadorId){
         Jogador jogador = service.buscarPorId(jogadorId);
         return jogador;
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Jogador> listarJogadores(){
+        return service.listarJogadores();
     }
 
     @PutMapping(value = "/{id}/transferencia", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
