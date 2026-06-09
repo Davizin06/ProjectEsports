@@ -8,6 +8,10 @@ export function cadastrarJogador(dados: NovoJogador): Promise<Jogador> {
     })
 }
 
+export function listarJogadores(): Promise<Jogador[]>{
+    return request<Jogador[]>('/jogadores')
+}
+
 export function buscarJogadorPorId(id: number): Promise<Jogador> {
     return request<Jogador>(`/jogadores/${id}`)
 }

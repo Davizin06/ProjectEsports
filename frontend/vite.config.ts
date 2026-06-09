@@ -10,6 +10,13 @@ export default defineConfig({
       // evitando problemas de CORS durante o desenvolvimento.
       '/times': 'http://localhost:8080',
       '/jogadores': 'http://localhost:8080',
+      '/jogos': 'http://localhost:8080',
+      '/desempenhos': 'http://localhost:8080',
+      '/partidas': 'http://localhost:8080',
+      '/campeonatos': 'http://localhost:8080',
+
+
+
     },
   },
 })

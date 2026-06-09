@@ -25,6 +25,34 @@ function NavBar({ atual, onNavegar }: NavBarProps) {
                 >
                     Jogadores
                 </NavLink>
+                <NavLink
+                    type="button"
+                    $ativo={atual === 'jogo'}
+                    onClick={() => onNavegar('jogo')}
+                >
+                    Jogo
+                </NavLink>
+                <NavLink
+                    type="button"
+                    $ativo={atual === 'desempenho'}
+                    onClick={() => onNavegar('desempenho')}
+                >
+                    Desempenho
+                </NavLink>
+                <NavLink
+                    type="button"
+                    $ativo={atual === 'partida'}
+                    onClick={() => onNavegar('partida')}
+                >
+                    Partida
+                </NavLink>
+                <NavLink
+                    type="button"
+                    $ativo={atual === 'campeonato'}
+                    onClick={() => onNavegar('campeonato')}
+                >
+                    Campeonato
+                </NavLink>
             </Links>
         </Bar>
     )
