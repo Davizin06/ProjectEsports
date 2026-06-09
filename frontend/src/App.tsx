@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import NavBar from './components/NavBar'
-import CadastroTime from './pages/CadastroTime'
-import CadastroJogador from './pages/CadastroJogador'
-import CadastroJogo from './pages/CadastroJogo'
-import CadastroDesempenho from './pages/CadastroDesempenho'
-import CadastroPartida from './pages/CadastroPartida'
-import CadastroCampeonato from './pages/CadastroCampeonato'
+import Time from './pages/Time'
+import Jogador from './pages/Jogador'
+import Jogo from './pages/Jogo'
+import Desempenho from './pages/Desempenho'
+import Partida from './pages/Partida'
+import Campeonato from './pages/Campeonato'
 import { Main } from './styles'
 
 export type Pagina =
@@ -22,25 +22,25 @@ function App() {
     function renderizarPagina() {
         switch (pagina) {
             case 'time':
-                return <CadastroTime />
+                return <Time />
 
             case 'jogador':
-                return <CadastroJogador />
+                return <Jogador />
 
             case 'jogo':
-                return <CadastroJogo />
+                return <Jogo />
 
             case 'desempenho':
-                return <CadastroDesempenho />
+                return <Desempenho />
 
             case 'partida':
-                return <CadastroPartida />
+                return <Partida />
 
             case 'campeonato':
-                return <CadastroCampeonato />
+                return <Campeonato />
 
             default:
-                return <CadastroTime />
+                return <Time />
         }
     }
 
