@@ -66,15 +66,27 @@ export interface Partida {
     dataHora: string
     duracao: string | null
     campeonato: Campeonato | null
+    timeA: Time | null
+    timeB: Time | null
+    vencedor: Time | null
+    placarTimeA: number | null
+    placarTimeB: number | null
 }
 
 export interface NovaPartida {
     dataHora: string
     campeonatoId: number | null
+    timeAId: number | null
+    timeBId: number | null
 }
 
 export interface FinalizarPartida {
     duracao: string
+}
+
+export interface AtualizarPlacar {
+    placarTimeA: number
+    placarTimeB: number
 }
 
 export interface Sumula {
@@ -111,4 +123,23 @@ export interface AtualizarKDA {
 
 export interface TransferenciaJogador {
     timeId: number | null
+}
+
+export interface JogadorDesempenho {
+    idJogador: number
+    nickname: string
+    kills: number
+    deaths: number
+    assists: number
+}
+
+export interface TimeDesempenho {
+    idTime: number
+    nome: string
+    jogadores: JogadorDesempenho[]
+}
+
+export interface DesempenhoPartida {
+    timeA: TimeDesempenho
+    timeB: TimeDesempenho
 }

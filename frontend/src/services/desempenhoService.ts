@@ -3,6 +3,7 @@ import type {
     DesempenhoJogador,
     NovoDesempenho,
     AtualizarKDA,
+    DesempenhoPartida,
 } from './types'
 
 export function cadastrarDesempenho(
@@ -35,4 +36,10 @@ export function atualizarKDA(
             body: JSON.stringify(dados),
         },
     )
+}
+
+export function listarDesempenhosDaPartida(
+    idPartida: number,
+): Promise<DesempenhoPartida> {
+    return request<DesempenhoPartida>(`/partidas/${idPartida}/desempenhos`)
 }

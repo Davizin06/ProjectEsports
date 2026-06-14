@@ -1,7 +1,9 @@
 package com.POO.esports.controller;
 
+import com.POO.esports.dto.DesempenhoPartidaResponse;
 import com.POO.esports.dto.FinalizarPartidaRequest;
 import com.POO.esports.dto.PartidaRequest;
+import com.POO.esports.dto.PlacarRequest;
 import com.POO.esports.model.Campeonato;
 import com.POO.esports.model.Partida;
 import com.POO.esports.model.Sumula;
@@ -85,6 +87,25 @@ public class PartidaController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Partida> listarPartidas() {
         return partidaService.listarPartidas();
+    }
+
+    @GetMapping(value = "/{id}/desempenhos", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DesempenhoPartidaResponse> listarDesempenhos(@PathVariable("id") Long idPartida) {
+        return ResponseEntity.ok(partidaService.listarDesempenhosDaPartida(idPartida));
+    }
+
+    @PatchMapping(value = "/{id}/placar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Partida> atualizarPlacar(
+            @PathVariable("id") Long idPartida,
+            @RequestBody PlacarRequest request
+    ) {
+        Partida partida = partidaService.atualizarPlacar(
+                idPartida,
+                request.getPlacarTimeA(),
+                request.getPlacarTimeB()
+        );
+
+        return ResponseEntity.ok(partida);
     }
 
     @PatchMapping(value = "/{id}/finalizar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
