@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import { theme } from '../../styles/theme'
 
 export const Bar = styled.header`
@@ -11,10 +12,13 @@ export const Bar = styled.header`
     border-bottom: 1px solid ${theme.color.border};
 `
 
-export const Brand = styled.span`
+export const Brand = styled(Link)`
     font-size: 15px;
     font-weight: 700;
     letter-spacing: 0.02em;
+    color: ${theme.color.text};
+    text-decoration: none;
+    cursor: pointer;
 `
 
 export const Links = styled.nav`

@@ -34,6 +34,12 @@ public class Partida {
     @JoinColumn(name = "id_time_vencedor")
     private Time vencedor;
 
+    @Column(name = "placar_time_a")
+    private Integer placarTimeA;
+
+    @Column(name = "placar_time_b")
+    private Integer placarTimeB;
+
     public Partida() {
     }
 
@@ -103,5 +109,21 @@ public class Partida {
 
     public void setVencedor(Time vencedor) {
         this.vencedor = vencedor;
+    }
+
+    public Integer getPlacarTimeA() {
+        return placarTimeA;
+    }
+
+    public void setPlacarTimeA(Integer placarTimeA) {
+        this.placarTimeA = placarTimeA;
+    }
+
+    public Integer getPlacarTimeB() {
+        return placarTimeB;
+    }
+
+    public void setPlacarTimeB(Integer placarTimeB) {
+        this.placarTimeB = placarTimeB;
     }
 }

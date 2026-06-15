@@ -9,7 +9,7 @@ interface NavBarProps {
 function NavBar({ atual, onNavegar }: NavBarProps) {
     return (
         <Bar>
-            <Brand>Esports Manager</Brand>
+            <Brand to="/">← Esports Manager</Brand>
             <Links>
                 <NavLink
                     type="button"

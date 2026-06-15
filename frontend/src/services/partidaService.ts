@@ -3,6 +3,7 @@ import type {
     Partida,
     NovaPartida,
     FinalizarPartida,
+    AtualizarPlacar,
     Sumula,
     NovaSumula,
 } from './types'
@@ -27,6 +28,16 @@ export function finalizarPartida(
     dados: FinalizarPartida,
 ): Promise<Partida> {
     return request<Partida>(`/partidas/${id}/finalizar`, {
+        method: 'PATCH',
+        body: JSON.stringify(dados),
+    })
+}
+
+export function atualizarPlacar(
+    id: number,
+    dados: AtualizarPlacar,
+): Promise<Partida> {
+    return request<Partida>(`/partidas/${id}/placar`, {
         method: 'PATCH',
         body: JSON.stringify(dados),
     })

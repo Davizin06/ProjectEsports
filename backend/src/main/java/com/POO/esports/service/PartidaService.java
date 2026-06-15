@@ -1,19 +1,36 @@
 package com.POO.esports.service;
 
+import com.POO.esports.dto.DesempenhoPartidaResponse;
+import com.POO.esports.dto.JogadorDesempenhoResponse;
+import com.POO.esports.dto.TimeDesempenhoResponse;
+import com.POO.esports.model.DesempenhoJogador;
+import com.POO.esports.model.Jogador;
 import com.POO.esports.model.Partida;
 import com.POO.esports.model.Time;
+import com.POO.esports.repository.DesempenhoJogadorRepository;
+import com.POO.esports.repository.JogadorRepository;
 import com.POO.esports.repository.PartidaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class PartidaService {
 
     @Autowired
     private PartidaRepository partidaRepository;
+
+    @Autowired
+    private JogadorRepository jogadorRepository;
+
+    @Autowired
+    private DesempenhoJogadorRepository desempenhoRepository;
 
     public Partida agendarPartida(Partida novaPartida) {
         if (novaPartida.getDataHora() == null) {
@@ -72,6 +89,23 @@ public class PartidaService {
         return partidaRepository.save(partida);
     }
 
+    public Partida atualizarPlacar(Long idPartida, Integer placarTimeA, Integer placarTimeB) {
+        Partida partida = buscarPorId(idPartida);
+
+        if (placarTimeA == null || placarTimeB == null) {
+            throw new IllegalArgumentException("Erro: O placar de ambos os times é obrigatório");
+        }
+
+        if (placarTimeA < 0 || placarTimeB < 0) {
+            throw new IllegalArgumentException("Erro: O placar não pode ser negativo");
+        }
+
+        partida.setPlacarTimeA(placarTimeA);
+        partida.setPlacarTimeB(placarTimeB);
+
+        return partidaRepository.save(partida);
+    }
+
     public List<Partida> listarPartidas() {
         return partidaRepository.findAll();
     }
@@ -79,5 +113,36 @@ public class PartidaService {
     public Partida buscarPorId(Long idPartida) {
         return partidaRepository.findById(idPartida)
                 .orElseThrow(() -> new RuntimeException("Partida não encontrada"));
+    }
+
+    public DesempenhoPartidaResponse listarDesempenhosDaPartida(Long idPartida) {
+        Partida partida = buscarPorId(idPartida);
+
+        Map<Integer, DesempenhoJogador> porJogador =
+                desempenhoRepository.buscarPorPartida(idPartida.intValue()).stream()
+                        .collect(Collectors.toMap(DesempenhoJogador::getIdJogador, Function.identity()));
+
+        return new DesempenhoPartidaResponse(
+                montarTime(partida.getTimeA(), porJogador),
+                montarTime(partida.getTimeB(), porJogador)
+        );
+    }
+
+    private TimeDesempenhoResponse montarTime(Time time, Map<Integer, DesempenhoJogador> porJogador) {
+        List<JogadorDesempenhoResponse> jogadores = new ArrayList<>();
+
+        for (Jogador jogador : jogadorRepository.buscarPorTime(time.getIdTime())) {
+            DesempenhoJogador desempenho = porJogador.get(jogador.getIdJogador().intValue());
+
+            jogadores.add(new JogadorDesempenhoResponse(
+                    jogador.getIdJogador(),
+                    jogador.getNickname(),
+                    desempenho != null ? desempenho.getKills() : 0,
+                    desempenho != null ? desempenho.getDeaths() : 0,
+                    desempenho != null ? desempenho.getAssists() : 0
+            ));
+        }
+
+        return new TimeDesempenhoResponse(time.getIdTime(), time.getNome(), jogadores);
     }
 }
