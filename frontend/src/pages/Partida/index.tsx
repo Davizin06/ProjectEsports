@@ -9,6 +9,8 @@ import { cadastrarPartida } from '../../services/partidaService'
 import { listarCampeonatos } from '../../services/campeonatoService'
 import { listarTimes } from '../../services/timeService'
 import type { Campeonato, Time } from '../../services/types'
+import CadastroDesempenho from '../Desempenho'
+import { PageStack } from './styles'
 
 interface Feedback {
     tipo: 'success' | 'error'
@@ -114,7 +116,8 @@ function CadastroPartida() {
         timeBId === '' ||
         timeAId === timeBId
 
-    return (
+return (
+    <PageStack>
         <FormCard
             title="Cadastrar partida"
             subtitle="Agende uma partida vinculando campeonato e os dois times participantes."
@@ -188,7 +191,10 @@ function CadastroPartida() {
                 {enviando ? 'Cadastrando...' : 'Cadastrar partida'}
             </Button>
         </FormCard>
-    )
+
+        <CadastroDesempenho />
+    </PageStack>
+)
 }
 
 export default CadastroPartida

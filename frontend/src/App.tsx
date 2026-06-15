@@ -10,11 +10,11 @@ import NavBar from './components/NavBar'
 import Time from './pages/Time'
 import Jogador from './pages/Jogador'
 import Jogo from './pages/Jogo'
-import Desempenho from './pages/Desempenho'
 import Partida from './pages/Partida'
 import Campeonato from './pages/Campeonato'
 import ListarPartidas from './pages/ListarPartidas'
 import VisualizarPartida from './pages/VisualizarPartida'
+import AdminLogin from './pages/AdminLogin'
 import type { Partida as PartidaType } from './services/types'
 import { Main, TopBar, Brand, TopLink } from './styles'
 
@@ -22,7 +22,6 @@ export type Pagina =
     | 'time'
     | 'jogador'
     | 'jogo'
-    | 'desempenho'
     | 'partida'
     | 'campeonato'
 
@@ -88,9 +87,6 @@ function Admin() {
             case 'jogo':
                 return <Jogo />
 
-            case 'desempenho':
-                return <Desempenho />
-
             case 'partida':
                 return <Partida />
 
@@ -111,12 +107,34 @@ function Admin() {
     )
 }
 
+function AdminRoute() {
+    const [adminAutenticado, setAdminAutenticado] = useState(() => {
+        return sessionStorage.getItem('adminAutenticado') === 'true'
+    })
+
+    if (!adminAutenticado) {
+        return (
+            <>
+                <PublicHeader />
+
+                <Main>
+                    <AdminLogin
+                        onAcessoLiberado={() => setAdminAutenticado(true)}
+                    />
+                </Main>
+            </>
+        )
+    }
+
+    return <Admin />
+}
+
 function App() {
     return (
         <Routes>
             <Route path="/" element={<HomePartidas />} />
             <Route path="/partidas/:id" element={<VisualizarPartidaRoute />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin" element={<AdminRoute />} />
             <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     )

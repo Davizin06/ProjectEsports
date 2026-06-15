@@ -34,13 +34,6 @@ function NavBar({ atual, onNavegar }: NavBarProps) {
                 </NavLink>
                 <NavLink
                     type="button"
-                    $ativo={atual === 'desempenho'}
-                    onClick={() => onNavegar('desempenho')}
-                >
-                    Desempenho
-                </NavLink>
-                <NavLink
-                    type="button"
                     $ativo={atual === 'partida'}
                     onClick={() => onNavegar('partida')}
                 >
