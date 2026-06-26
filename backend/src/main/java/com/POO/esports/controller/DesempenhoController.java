@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping("/desempenhos")
 public class DesempenhoController {
@@ -31,20 +33,36 @@ public class DesempenhoController {
 
     @PutMapping(value = "/{idJogador}/{idPartida}/kda", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DesempenhoJogador> atualizarKDA(
-            @PathVariable Integer idJogador,
-            @PathVariable Integer idPartida,
+            @PathVariable Long idJogador,
+            @PathVariable Long idPartida,
             @RequestBody KDARequest request) {
+
         DesempenhoJogador atualizado = service.atualizarKDA(
-                    idJogador, idPartida,
-                    request.getKills(), request.getDeaths(), request.getAssists());
+                idJogador,
+                idPartida,
+                request.getKills(),
+                request.getDeaths(),
+                request.getAssists()
+        );
+
         return ResponseEntity.ok(atualizado);
     }
 
     @GetMapping(value = "/{idJogador}/{idPartida}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DesempenhoJogador> buscarPorId(
-            @PathVariable Integer idJogador,
-            @PathVariable Integer idPartida) {
+            @PathVariable Long idJogador,
+            @PathVariable Long idPartida) {
+
         DesempenhoJogador desempenho = service.buscarPorId(idJogador, idPartida);
         return ResponseEntity.ok(desempenho);
+    }
+
+    @GetMapping(value = "/calcular-kda", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BigDecimal> calcularKda(
+            @RequestParam Integer kills,
+            @RequestParam Integer deaths,
+            @RequestParam Integer assists
+    ) {
+        return ResponseEntity.ok(service.calcularKda(kills, deaths, assists));
     }
 }

@@ -15,11 +15,11 @@ public class DesempenhoJogador {
 
     @Id
     @Column(name = "id_jogador")
-    private Integer idJogador;
+    private Long idJogador;
 
     @Id
     @Column(name = "id_partida")
-    private Integer idPartida;
+    private Long idPartida;
 
     @ManyToOne
     @JoinColumn(name = "id_jogador", insertable = false, updatable = false)
@@ -41,7 +41,7 @@ public class DesempenhoJogador {
     public DesempenhoJogador() {
     }
 
-    public DesempenhoJogador(Integer idJogador, Integer idPartida, Integer kills, Integer deaths, Integer assists) {
+    public DesempenhoJogador(Long idJogador, Long idPartida, Integer kills, Integer deaths, Integer assists) {
         this.idJogador = idJogador;
         this.idPartida = idPartida;
         this.kills = kills;
@@ -49,19 +49,19 @@ public class DesempenhoJogador {
         this.assists = assists;
     }
 
-    public Integer getIdJogador() {
+    public Long getIdJogador() {
         return idJogador;
     }
 
-    public void setIdJogador(Integer idJogador) {
+    public void setIdJogador(Long idJogador) {
         this.idJogador = idJogador;
     }
 
-    public Integer getIdPartida() {
+    public Long getIdPartida() {
         return idPartida;
     }
 
-    public void setIdPartida(Integer idPartida) {
+    public void setIdPartida(Long idPartida) {
         this.idPartida = idPartida;
     }
 

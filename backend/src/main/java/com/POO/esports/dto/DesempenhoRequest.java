@@ -1,29 +1,28 @@
 package com.POO.esports.dto;
 
 public class DesempenhoRequest {
-    private Integer idJogador;
-    private Integer idPartida;
+    private Long idJogador;
+    private Long idPartida;
     private Integer kills;
     private Integer deaths;
     private Integer assists;
 
-    public DesempenhoRequest(){
-
+    public DesempenhoRequest() {
     }
 
-    public Integer getIdJogador() {
+    public Long getIdJogador() {
         return idJogador;
     }
 
-    public void setIdJogador(Integer idJogador) {
+    public void setIdJogador(Long idJogador) {
         this.idJogador = idJogador;
     }
 
-    public Integer getIdPartida() {
+    public Long getIdPartida() {
         return idPartida;
     }
 
-    public void setIdPartida(Integer idPartida) {
+    public void setIdPartida(Long idPartida) {
         this.idPartida = idPartida;
     }
 

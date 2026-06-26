@@ -5,30 +5,30 @@ import java.util.Objects;
 
 public class DesempenhoJogadorId implements Serializable {
 
-    private Integer idJogador;
-    private Integer idPartida;
+    private Long idJogador;
+    private Long idPartida;
 
     public DesempenhoJogadorId() {
     }
 
-    public DesempenhoJogadorId(Integer idJogador, Integer idPartida) {
+    public DesempenhoJogadorId(Long idJogador, Long idPartida) {
         this.idJogador = idJogador;
         this.idPartida = idPartida;
     }
 
-    public Integer getIdJogador() {
+    public Long getIdJogador() {
         return idJogador;
     }
 
-    public void setIdJogador(Integer idJogador) {
+    public void setIdJogador(Long idJogador) {
         this.idJogador = idJogador;
     }
 
-    public Integer getIdPartida() {
+    public Long getIdPartida() {
         return idPartida;
     }
 
-    public void setIdPartida(Integer idPartida) {
+    public void setIdPartida(Long idPartida) {
         this.idPartida = idPartida;
     }
 

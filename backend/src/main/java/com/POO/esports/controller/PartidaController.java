@@ -124,4 +124,19 @@ public class PartidaController {
 
         return ResponseEntity.ok(partida);
     }
+
+    @PatchMapping(value = "/{id}/finalizar-procedure", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Partida> finalizarPartidaPorProcedure(
+        @PathVariable("id") Long idPartida,
+        @RequestBody FinalizarPartidaRequest request
+    ) {
+
+        Partida partida = partidaService.finalizarPartidaPorProcedure(
+            idPartida,
+            request.getDuracao(),
+            request.getVencedorId()
+        );
+
+        return ResponseEntity.ok(partida);
+    }
 }

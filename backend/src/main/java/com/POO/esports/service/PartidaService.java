@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PartidaService {
 
@@ -84,8 +86,6 @@ public class PartidaService {
         partida.setDuracao(duracaoDaPartida);
         partida.setVencedor(vencedor);
 
-        vencedor.setVitoriasTotais(vencedor.getVitoriasTotais() + 1);
-
         return partidaRepository.save(partida);
     }
 
@@ -118,8 +118,8 @@ public class PartidaService {
     public DesempenhoPartidaResponse listarDesempenhosDaPartida(Long idPartida) {
         Partida partida = buscarPorId(idPartida);
 
-        Map<Integer, DesempenhoJogador> porJogador =
-                desempenhoRepository.buscarPorPartida(idPartida.intValue()).stream()
+        Map<Long, DesempenhoJogador> porJogador =
+                desempenhoRepository.buscarPorPartida(idPartida).stream()
                         .collect(Collectors.toMap(DesempenhoJogador::getIdJogador, Function.identity()));
 
         return new DesempenhoPartidaResponse(
@@ -132,7 +132,7 @@ public class PartidaService {
         List<JogadorDesempenhoResponse> jogadores = new ArrayList<>();
 
         for (Jogador jogador : jogadorRepository.buscarPorTime(time.getIdTime())) {
-            DesempenhoJogador desempenho = porJogador.get(jogador.getIdJogador().intValue());
+            DesempenhoJogador desempenho = porJogador.get(jogador.getIdJogador());
 
             jogadores.add(new JogadorDesempenhoResponse(
                     jogador.getIdJogador(),
@@ -144,5 +144,20 @@ public class PartidaService {
         }
 
         return new TimeDesempenhoResponse(time.getIdTime(), time.getNome(), jogadores);
+    }
+
+    @Transactional
+    public Partida finalizarPartidaPorProcedure(Long idPartida, LocalTime duracaoDaPartida, Long idVencedor) {
+        if (duracaoDaPartida == null) {
+            throw new IllegalArgumentException("Erro: A duração da partida é obrigatória");
+        }
+
+        if (idVencedor == null) {
+            throw new IllegalArgumentException("Erro: O vencedor da partida é obrigatório");
+        }
+
+        partidaRepository.finalizarPartidaPorProcedure(idPartida, duracaoDaPartida, idVencedor);
+
+        return buscarPorId(idPartida);
     }
 }
