@@ -18,7 +18,7 @@ public class JogadorService {
     @Autowired
     private TimeRepository timeRepository;
 
-    public Jogador cadastrarJogador(Jogador novoJogador, Integer timeId) {
+    public Jogador cadastrarJogador(Jogador novoJogador, Long timeId) {
         if (novoJogador.getNickname() == null || novoJogador.getNickname().isEmpty()) {
             throw new IllegalArgumentException("Erro: O jogador precisa ter um nickname válido");
         }
@@ -28,7 +28,7 @@ public class JogadorService {
         }
 
         if (timeId != null) {
-            Time time = timeRepository.findById(Long.valueOf(timeId))
+            Time time = timeRepository.findById(timeId)
                     .orElseThrow(() -> new IllegalArgumentException("Erro: Time não encontrado"));
             novoJogador.setTime(time);
         }

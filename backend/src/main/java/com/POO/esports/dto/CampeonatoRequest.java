@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class CampeonatoRequest {
     private String nome;
     private BigDecimal premiacao;
-    private Integer jogoId;
+    private Long jogoId;
 
     public CampeonatoRequest(){
 
@@ -27,11 +27,11 @@ public class CampeonatoRequest {
         this.premiacao = premiacao;
     }
 
-    public Integer getJogoId() {
+    public Long getJogoId() {
         return jogoId;
     }
 
-    public void setJogoId(Integer jogoId) {
+    public void setJogoId(Long jogoId) {
         this.jogoId = jogoId;
     }
 }

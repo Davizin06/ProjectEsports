@@ -12,9 +12,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT calcular_kda(20, 10, 8) AS kda;
-
-
 CREATE OR REPLACE PROCEDURE finalizar_partida(
     p_id_partida BIGINT,
     p_duracao TIME,

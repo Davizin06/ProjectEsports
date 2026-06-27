@@ -15,5 +15,4 @@ INNER JOIN time_esports t ON jo.id_time = t.id_time
 LEFT JOIN desempenho_jogador d ON jo.id_jogador = d.id_jogador
 GROUP BY jo.id_jogador, jo.nickname, t.nome;
 
-SELECT * FROM vw_ranking_jogadores
-ORDER BY kda DESC;
+

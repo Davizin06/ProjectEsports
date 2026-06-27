@@ -8,7 +8,7 @@ public class JogadorRequest {
     private String nickname;
     private Integer idadeJogador;
     private BigDecimal salario;
-    private Integer timeId;
+    private Long timeId;
 
     public JogadorRequest(){
 
@@ -38,11 +38,11 @@ public class JogadorRequest {
         this.salario = salario;
     }
 
-    public Integer getTimeId() {
+    public Long getTimeId() {
         return timeId;
     }
 
-    public void setTimeId(Integer timeId) {
+    public void setTimeId(Long timeId) {
         this.timeId = timeId;
     }
 }

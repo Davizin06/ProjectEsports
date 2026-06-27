@@ -10,8 +10,11 @@ import com.POO.esports.model.Time;
 import com.POO.esports.repository.DesempenhoJogadorRepository;
 import com.POO.esports.repository.JogadorRepository;
 import com.POO.esports.repository.PartidaRepository;
-import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -19,8 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class PartidaService {
@@ -128,7 +129,7 @@ public class PartidaService {
         );
     }
 
-    private TimeDesempenhoResponse montarTime(Time time, Map<Integer, DesempenhoJogador> porJogador) {
+    private TimeDesempenhoResponse montarTime(Time time, Map<Long, DesempenhoJogador> porJogador) {
         List<JogadorDesempenhoResponse> jogadores = new ArrayList<>();
 
         for (Jogador jogador : jogadorRepository.buscarPorTime(time.getIdTime())) {
@@ -148,6 +149,10 @@ public class PartidaService {
 
     @Transactional
     public Partida finalizarPartidaPorProcedure(Long idPartida, LocalTime duracaoDaPartida, Long idVencedor) {
+        if (idPartida == null) {
+            throw new IllegalArgumentException("Erro: O ID da partida é obrigatório");
+        }
+
         if (duracaoDaPartida == null) {
             throw new IllegalArgumentException("Erro: A duração da partida é obrigatória");
         }

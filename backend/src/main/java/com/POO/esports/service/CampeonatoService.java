@@ -19,7 +19,7 @@ public class CampeonatoService {
     @Autowired
     private JogoRepository jogoRepository;
 
-    public Campeonato cadastrarCampeonato(Campeonato novoCampeonato, Integer jogoId) {
+    public Campeonato cadastrarCampeonato(Campeonato novoCampeonato, Long jogoId) {
         if (novoCampeonato.getNome() == null || novoCampeonato.getNome().trim().isEmpty()) {
             throw new IllegalArgumentException("Erro: O campeonato precisa ter um nome válido");
         }
@@ -30,7 +30,7 @@ public class CampeonatoService {
             throw new IllegalArgumentException("Erro: O campeonato deve estar obrigatoriamente vinculado a um jogo");
         }
 
-        Jogo jogo = jogoRepository.findById(Long.valueOf(jogoId))
+        Jogo jogo = jogoRepository.findById(jogoId)
                 .orElseThrow(() -> new IllegalArgumentException("Erro: Jogo não encontrado"));
         novoCampeonato.setJogo(jogo);
 

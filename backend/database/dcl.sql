@@ -10,5 +10,3 @@ GRANT SELECT ON ALL TABLES IN SCHEMA public TO role_leitura;
 CREATE USER professor_bd WITH PASSWORD '123456';
 GRANT role_leitura TO professor_bd;
 
--- Exemplo de revogação:
-REVOKE SELECT ON desempenho_jogador FROM role_leitura;
